@@ -22,16 +22,14 @@ st.set_page_config(
     layout="wide",
 )
 
-# Initialize CIBIL session state value if it doesn't exist
-if "cibil_value" not in st.session_state:
-    st.session_state.cibil_value = 650.0
-
 # =====================================================================
 # SIDEBAR PANEL BRANDING & LOGO
 # =====================================================================
 with st.sidebar:
+    # App Logo Icon (Using a public URL icon)
     st.image("https://cdn-icons-png.flaticon.com/512/2830/2830284.png", width=70)
     
+    # Custom Sidebar Title Styling
     st.markdown("""
         <h2 style='margin-top: -10px; color: #ffffff;'>LoanSmart</h2>
         <p style='font-size: 0.85rem; color: #b0a8b9; margin-top: -15px;'>Smart Financial Intelligence</p>
@@ -128,7 +126,16 @@ with st.container(border=True):
         # -------------------------------------------------------------
         dont_know_cibil = st.checkbox("❓ Don't know your CIBIL score?")
 
-        if dont_know_cibil:
+        if not dont_know_cibil:
+            # Standard manual numerical input
+            cibil_score = st.number_input(
+                "📈 CIBIL Score",
+                min_value=300.0,
+                max_value=900.0,
+                value=650.0,
+            )
+        else:
+            # Dropdowns to dynamically estimate a CIBIL score
             st.markdown("#### 🧮 CIBIL Score Estimator")
             
             pay_history = st.selectbox(
@@ -146,18 +153,20 @@ with st.container(border=True):
                 min_value=0, max_value=15, value=2
             )
 
-            # Calculation Logic based on weightings
-            estimated_cibil = 600.0  
+            # Calculation Logic based on standard banking credit score weightings
+            estimated_cibil = 600.0  # Base initial score
             
+            # 1. Payment History impact
             if pay_history == "Always on time":
                 estimated_cibil += 150
             elif pay_history == "Delayed sometimes":
                 estimated_cibil += 30
             elif pay_history == "Frequently delayed":
                 estimated_cibil -= 100
-            else:
-                estimated_cibil = 650.0
+            else:  # No prior credit history
+                estimated_cibil = 650.0  # Safe middle baseline for fresh profiles
                 
+            # 2. Total Credit Utilization & History Age impact
             if pay_history != "No prior credit history":
                 if existing_debts == "Very Low / None":
                     estimated_cibil += 100
@@ -166,20 +175,11 @@ with st.container(border=True):
                     
                 estimated_cibil += min(credit_age * 5, 50)
             
-            # Instantly sync to session state
-            st.session_state.cibil_value = float(max(300.0, min(900.0, estimated_cibil)))
-
-        # Explicitly read from session state value so that it autoupdates dynamically
-        cibil_score = st.number_input(
-            "📈 CIBIL Score",
-            min_value=300.0,
-            max_value=900.0,
-            value=st.session_state.cibil_value,
-            key="cibil_input_field"
-        )
-        
-        if dont_know_cibil:
-            st.info(f"📊 Auto-calculated and filled: **{int(cibil_score)}**")
+            # Constrain score safely inside standard CIBIL limits (300 to 900)
+            cibil_score = max(300.0, min(900.0, estimated_cibil))
+            
+            # Display estimated value back to the user
+            st.info(f"📊 Estimated CIBIL Score applied: **{int(cibil_score)}**")
         # -------------------------------------------------------------
 
         residential_assets_value = st.number_input(
@@ -265,6 +265,7 @@ if predict_btn:
 
         if approved:
             render_approval_result(confidence_pct)
+            st.balloons()
             if HAPPY_GIF_PATH.exists():
                 show_image(str(HAPPY_GIF_PATH))
         else:
