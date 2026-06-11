@@ -10,15 +10,31 @@ st.set_page_config(
     layout="wide",
 )
 
+# =====================================================================
+# SIDEBAR PANEL BRANDING & LOGO
+# =====================================================================
+with st.sidebar:
+    # App Logo Icon (Matches all other application pages)
+    st.image("https://cdn-icons-png.flaticon.com/512/2830/2830284.png", width=70)
+    
+    # Custom Sidebar Title Styling
+    st.markdown("""
+        <h2 style='margin-top: -10px; color: #ffffff;'>LoanSmart</h2>
+        <p style='font-size: 0.85rem; color: #b0a8b9; margin-top: -15px;'>Smart Financial Intelligence</p>
+        <hr style='margin-top: 5px; margin-bottom: 20px; border-color: rgba(255,255,255,0.1);'>
+    """, unsafe_allow_html=True)
+
+# =====================================================================
+
 inject_global_styles()
 
 st.markdown("""
 <div class='title'>
-ℹ️ About Project
+ℹ️ About Platform
 </div>
 
 <div class='subtitle'>
-System Architecture Framework Overview & Smart Loan Intelligence Platform
+Enterprise AI Platform for Underwriting Governance & Risk Intelligence
 </div>
 
 <div class='badge-row'>
@@ -29,22 +45,28 @@ System Architecture Framework Overview & Smart Loan Intelligence Platform
 </div>
 """, unsafe_allow_html=True)
 
+# ======================================================
+# ENTERPRISE VISION SECTION
+# ======================================================
 st.markdown("""
 <div class='hero-card'>
 
 <h2>
-🏦 Intelligent Loan Evaluation Engine
+🏦 Corporate Overview & Strategic Mission
 </h2>
 
 <p>
-LoanSmart is an end-to-end AI-powered financial intelligence platform developed to modernize and simplify the traditional loan approval process. The system leverages Machine Learning algorithms to analyze applicant financial records, evaluate risk factors, inspect credit behavior, and generate instant loan eligibility predictions with high accuracy.
+<b>LoanSmart</b> is a leading, institutional-grade automated underwriting and financial risk modeling platform designed to replace legacy credit evaluation workflows. By leveraging advanced Machine Learning frameworks, the platform instantly parses applicant profiles, analyzes demographic configurations, evaluates liability concentrations, and returns real-time risk scores with exceptional statistical calibration.
 <br><br>
-The platform combines predictive analytics, interactive dashboards, risk evaluation modules, and smart visualization tools to help financial institutions process loan applications faster and more efficiently while reducing manual verification complexity.
+Our mission is to establish transparent, deterministic, and frictionless financial intelligence solutions. By combining deep mathematical model pipelines with enterprise-ready interactive interfaces, LoanSmart empowers banking institutions to lower operational overhead, mitigate credit defaults, and accelerate credit portfolio throughput.
 </p>
 
 </div>
 """, unsafe_allow_html=True)
 
+# ======================================================
+# CORE PLATFORM CAPABILITIES
+# ======================================================
 st.markdown("""
 <div class='section-title'>
 📌 System Core Capabilities
@@ -83,78 +105,36 @@ with col3:
     </div>
     """, unsafe_allow_html=True)
 
+# ======================================================
+# PROFESSIONAL PLATFORM COMMITMENT
+# ======================================================
 st.markdown("<br>", unsafe_allow_html=True)
 
 st.markdown("""
-<div class='section-title'>
-🚀 Technology Stack
+<div class='hero-card' style='border-left: 5px solid #6f42c1;'>
+<h3>💼 Model Alignment & Operational Governance</h3>
+<p>
+LoanSmart is engineered under strict risk management oversight. The underlying machine learning model evaluates asset-to-debt ratios and creditworthiness profiles symmetrically to protect credit ecosystems from high-leverage liabilities, ensuring reliable risk intelligence delivery across all digital channels.
+</p>
 </div>
 """, unsafe_allow_html=True)
 
+# ======================================================
+# AUTHOR PROFILE SECTION
+# ======================================================
 st.markdown("""
-<div class='stack-container'>
-
-<span class='tech-badge'>🐍 Python 3.x</span>
-<span class='tech-badge'>⚡ Streamlit Framework</span>
-<span class='tech-badge'>🤖 Scikit-Learn ML Model</span>
-<span class='tech-badge'>🐼 Pandas Data Processing</span>
-<span class='tech-badge'>🔢 NumPy Computation</span>
-<span class='tech-badge'>📈 Plotly Visual Analytics</span>
-<span class='tech-badge'>📦 Joblib Serialization</span>
-<span class='tech-badge'>🎨 HTML + CSS Styling</span>
-
+<div class='author-card' style='margin-top: 40px; padding: 25px; text-align: center;'>
+<h3 style='margin-bottom: 5px;'>Lead Platform Architect</h3>
+<h2 style='color: #6f42c1; margin-top: 0px; font-weight: bold;'>Archana</h2>
+<p style='font-size: 1.1rem; color: #6c757d; margin-top: -5px;'>Machine Learning Intern</p>
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-<div class='section-title'>
-⚙️ System Workflow
-</div>
-""", unsafe_allow_html=True)
-
-w1, w2, w3, w4 = st.columns(4)
-
-with w1:
-    st.markdown("""
-    <div class='grid-box'>
-    <h4>1️⃣ Data Input</h4>
-    <p>User enters applicant financial details and asset information.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-with w2:
-    st.markdown("""
-    <div class='grid-box'>
-    <h4>2️⃣ Data Processing</h4>
-    <p>Features are encoded, cleaned, scaled, and prepared for prediction.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-with w3:
-    st.markdown("""
-    <div class='grid-box'>
-    <h4>3️⃣ ML Prediction</h4>
-    <p>Machine Learning model analyzes financial risk and predicts loan status.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-with w4:
-    st.markdown("""
-    <div class='grid-box'>
-    <h4>4️⃣ Smart Insights</h4>
-    <p>Users receive approval results with intelligent financial analysis insights.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-st.markdown("""
-<div class='author-card'>
-<h3>Lead Platform Architect</h3>
-<p>✨ Archana ✨</p>
-</div>
-""", unsafe_allow_html=True)
-
+# ======================================================
+# FOOTER
+# ======================================================
 st.markdown("""
 <div class='footer'>
-🏦 LoanSmart · AI Loan Approval Prediction System · Developed using Streamlit & Machine Learning
+🏦 LoanSmart · AI Loan Approval Prediction System · Developed by Archana (Machine Learning Intern)
 </div>
 """, unsafe_allow_html=True)
