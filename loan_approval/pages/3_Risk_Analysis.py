@@ -15,6 +15,22 @@ st.set_page_config(
     layout="wide"
 )
 
+# =====================================================================
+# SIDEBAR PANEL BRANDING & LOGO (Added for Consistency)
+# =====================================================================
+with st.sidebar:
+    # App Logo Icon (Matches Predict and Dashboard Pages)
+    st.image("https://cdn-icons-png.flaticon.com/512/2830/2830284.png", width=70)
+    
+    # Custom Sidebar Title Styling
+    st.markdown("""
+        <h2 style='margin-top: -10px; color: #ffffff;'>LoanSmart</h2>
+        <p style='font-size: 0.85rem; color: #b0a8b9; margin-top: -15px;'>Smart Financial Intelligence</p>
+        <hr style='margin-top: 5px; margin-bottom: 20px; border-color: rgba(255,255,255,0.1);'>
+    """, unsafe_allow_html=True)
+
+# =====================================================================
+
 inject_global_styles()
 
 # ======================================================
@@ -87,9 +103,9 @@ with c1:
     <div class='card'>
     <h3>🟢 Low Risk</h3>
     <p>
-    CIBIL Score above 750,
-    Stable income,
-    Low liabilities,
+    CIBIL Score above 750,<br>
+    Stable income,<br>
+    Low liabilities,<br>
     High approval chances.
     </p>
     </div>
@@ -100,9 +116,9 @@ with c2:
     <div class='card'>
     <h3>🟡 Medium Risk</h3>
     <p>
-    CIBIL Score between 650–750,
-    Moderate income,
-    Existing debts,
+    CIBIL Score between 650–750,<br>
+    Moderate income,<br>
+    Existing debts,<br>
     Approval depends on lender policy.
     </p>
     </div>
@@ -113,9 +129,9 @@ with c3:
     <div class='card'>
     <h3>🔴 High Risk</h3>
     <p>
-    CIBIL below 650,
-    High liabilities,
-    Poor repayment history,
+    CIBIL below 650,<br>
+    High liabilities,<br>
+    Poor repayment history,<br>
     Increased rejection probability.
     </p>
     </div>
