@@ -15,7 +15,7 @@ from prediction_ui import (
 from streamlit_compat import button as st_button, show_image
 from ui_styles import inject_global_styles
 
-# Updated layout page config with LoanSmart matching branding
+# Page configuration with matching LoanSmart branding
 st.set_page_config(
     page_title="LoanSmart - Prediction",
     page_icon="🏦",
@@ -26,7 +26,7 @@ st.set_page_config(
 # SIDEBAR PANEL BRANDING & LOGO
 # =====================================================================
 with st.sidebar:
-    # App Logo Icon (You can swap this URL link out with your local image path asset if needed)
+    # App Logo Icon (Using a public URL icon)
     st.image("https://cdn-icons-png.flaticon.com/512/2830/2830284.png", width=70)
     
     # Custom Sidebar Title Styling
@@ -84,6 +84,7 @@ AI-Powered Smart Loan Eligibility & Risk Analysis System
 </div>
 """, unsafe_allow_html=True)
 
+# Input Form Area
 with st.container(border=True):
     col1, col2 = st.columns(2)
 
@@ -119,12 +120,68 @@ with st.container(border=True):
             min_value=0.0,
             value=0.0,
         )
-        cibil_score = st.number_input(
-            "📈 CIBIL Score",
-            min_value=300.0,
-            max_value=900.0,
-            value=650.0,
-        )
+
+        # -------------------------------------------------------------
+        # CIBIL Score or Estimator Section
+        # -------------------------------------------------------------
+        dont_know_cibil = st.checkbox("❓ Don't know your CIBIL score?")
+
+        if not dont_know_cibil:
+            # Standard manual numerical input
+            cibil_score = st.number_input(
+                "📈 CIBIL Score",
+                min_value=300.0,
+                max_value=900.0,
+                value=650.0,
+            )
+        else:
+            # Dropdowns to dynamically estimate a CIBIL score
+            st.markdown("#### 🧮 CIBIL Score Estimator")
+            
+            pay_history = st.selectbox(
+                "Have you paid your past bills/EMIs on time?",
+                ["Always on time", "Delayed sometimes", "Frequently delayed", "No prior credit history"]
+            )
+            
+            existing_debts = st.selectbox(
+                "How much existing loan/credit card debt do you have?",
+                ["Very Low / None", "Moderate", "High"]
+            )
+            
+            credit_age = st.slider(
+                "How many years have you been using credit (loans/cards)?", 
+                min_value=0, max_value=15, value=2
+            )
+
+            # Calculation Logic based on standard banking credit score weightings
+            estimated_cibil = 600.0  # Base initial score
+            
+            # 1. Payment History impact
+            if pay_history == "Always on time":
+                estimated_cibil += 150
+            elif pay_history == "Delayed sometimes":
+                estimated_cibil += 30
+            elif pay_history == "Frequently delayed":
+                estimated_cibil -= 100
+            else:  # No prior credit history
+                estimated_cibil = 650.0  # Safe middle baseline for fresh profiles
+                
+            # 2. Total Credit Utilization & History Age impact
+            if pay_history != "No prior credit history":
+                if existing_debts == "Very Low / None":
+                    estimated_cibil += 100
+                elif existing_debts == "High":
+                    estimated_cibil -= 80
+                    
+                estimated_cibil += min(credit_age * 5, 50)
+            
+            # Constrain score safely inside standard CIBIL limits (300 to 900)
+            cibil_score = max(300.0, min(900.0, estimated_cibil))
+            
+            # Display estimated value back to the user
+            st.info(f"📊 Estimated CIBIL Score applied: **{int(cibil_score)}**")
+        # -------------------------------------------------------------
+
         residential_assets_value = st.number_input(
             "🏠 Residential Assets",
             min_value=0.0,
@@ -146,6 +203,7 @@ with st.container(border=True):
             value=0.0,
         )
 
+# Format category selections to encoded features for the ML model pipeline
 edu_enc = 1 if education == "Graduate" else 0
 self_enc = 1 if self_employed == "Yes" else 0
 
@@ -207,7 +265,7 @@ if predict_btn:
 
         if approved:
             render_approval_result(confidence_pct)
-            st.balloons()
+            # Note: st.balloons() has been safely removed from here
             if HAPPY_GIF_PATH.exists():
                 show_image(str(HAPPY_GIF_PATH))
         else:
@@ -239,7 +297,7 @@ Self Employed: {self_employed}
 Annual Income: ₹{income_annum:,.0f}
 Loan Amount: ₹{loan_amount:,.0f}
 Loan Term: {loan_term} Years
-CIBIL Score: {cibil_score}
+CIBIL Score: {int(cibil_score)} {"(Estimated)" if dont_know_cibil else ""}
 
 Assets
 -------
