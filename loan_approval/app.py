@@ -5,11 +5,30 @@ import streamlit as st
 from streamlit_compat import show_image
 from ui_styles import inject_global_styles
 
+# ======================================================
+# PAGE CONFIG (Updated Branding Title)
+# ======================================================
 st.set_page_config(
-    page_title="Loan Prediction System",
+    page_title="LoanSmart | Home",
     page_icon="🏦",
     layout="wide",
 )
+
+# =====================================================================
+# SIDEBAR PANEL BRANDING & LOGO (Added for Consistency)
+# =====================================================================
+with st.sidebar:
+    # App Logo Icon (Matches all other sub-pages)
+    st.image("https://cdn-icons-png.flaticon.com/512/2830/2830284.png", width=70)
+    
+    # Custom Sidebar Title Styling
+    st.markdown("""
+        <h2 style='margin-top: -10px; color: #ffffff;'>LoanSmart</h2>
+        <p style='font-size: 0.85rem; color: #b0a8b9; margin-top: -15px;'>Smart Financial Intelligence</p>
+        <hr style='margin-top: 5px; margin-bottom: 20px; border-color: rgba(255,255,255,0.1);'>
+    """, unsafe_allow_html=True)
+
+# =====================================================================
 
 inject_global_styles()
 
@@ -133,9 +152,3 @@ with s4:
     """, unsafe_allow_html=True)
 
 st.success("✅ Navigate through the sidebar to explore prediction, dashboard analytics, and project insights.")
-
-st.markdown("""
-<div class='footer'>
-🏦 LoanSmart · AI Loan Prediction Platform · Developed by Archana
-</div>
-""", unsafe_allow_html=True)
