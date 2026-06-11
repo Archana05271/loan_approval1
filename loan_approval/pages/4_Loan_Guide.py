@@ -15,6 +15,22 @@ st.set_page_config(
     layout="wide"
 )
 
+# =====================================================================
+# SIDEBAR PANEL BRANDING & LOGO (Added for Consistency)
+# =====================================================================
+with st.sidebar:
+    # App Logo Icon (Matches Predict, Dashboard, and Risk Analysis Pages)
+    st.image("https://cdn-icons-png.flaticon.com/512/2830/2830284.png", width=70)
+    
+    # Custom Sidebar Title Styling
+    st.markdown("""
+        <h2 style='margin-top: -10px; color: #ffffff;'>LoanSmart</h2>
+        <p style='font-size: 0.85rem; color: #b0a8b9; margin-top: -15px;'>Smart Financial Intelligence</p>
+        <hr style='margin-top: 5px; margin-bottom: 20px; border-color: rgba(255,255,255,0.1);'>
+    """, unsafe_allow_html=True)
+
+# =====================================================================
+
 inject_global_styles()
 
 # ======================================================
