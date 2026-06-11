@@ -15,11 +15,28 @@ from prediction_ui import (
 from streamlit_compat import button as st_button, show_image
 from ui_styles import inject_global_styles
 
+# Updated layout page config with LoanSmart matching branding
 st.set_page_config(
-    page_title="Loan Prediction",
+    page_title="LoanSmart - Prediction",
     page_icon="🏦",
     layout="wide",
 )
+
+# =====================================================================
+# SIDEBAR PANEL BRANDING & LOGO
+# =====================================================================
+with st.sidebar:
+    # App Logo Icon (You can swap this URL link out with your local image path asset if needed)
+    st.image("https://cdn-icons-png.flaticon.com/512/2830/2830284.png", width=70)
+    
+    # Custom Sidebar Title Styling
+    st.markdown("""
+        <h2 style='margin-top: -10px; color: #ffffff;'>LoanSmart</h2>
+        <p style='font-size: 0.85rem; color: #b0a8b9; margin-top: -15px;'>Smart Financial Intelligence</p>
+        <hr style='margin-top: 5px; margin-bottom: 20px; border-color: rgba(255,255,255,0.1);'>
+    """, unsafe_allow_html=True)
+
+# =====================================================================
 
 FEATURE_NAMES = [
     "no_of_dependents",
