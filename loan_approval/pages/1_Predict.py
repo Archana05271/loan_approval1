@@ -129,7 +129,6 @@ with st.container(border=True):
         dont_know_cibil = st.checkbox("❓ Don't know your CIBIL score?")
 
         if dont_know_cibil:
-            # Dropdowns to dynamically estimate a CIBIL score
             st.markdown("#### 🧮 CIBIL Score Estimator")
             
             pay_history = st.selectbox(
@@ -147,8 +146,8 @@ with st.container(border=True):
                 min_value=0, max_value=15, value=2
             )
 
-            # Calculation Logic based on standard banking credit score weightings
-            estimated_cibil = 600.0  # Base initial score
+            # Calculation Logic based on weightings
+            estimated_cibil = 600.0  
             
             if pay_history == "Always on time":
                 estimated_cibil += 150
@@ -167,10 +166,10 @@ with st.container(border=True):
                     
                 estimated_cibil += min(credit_age * 5, 50)
             
-            # Update the session state value instantly
+            # Instantly sync to session state
             st.session_state.cibil_value = float(max(300.0, min(900.0, estimated_cibil)))
 
-        # The main input field now reads directly from the session state value
+        # Explicitly read from session state value so that it autoupdates dynamically
         cibil_score = st.number_input(
             "📈 CIBIL Score",
             min_value=300.0,
